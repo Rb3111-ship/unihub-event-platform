@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Create Event - UniHub</title>
+  <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="create_event_style.css">
+
+  <link rel="icon" href="images/logo16x16.jpeg" type="image/png" sizes="16x16">
+  <link rel="icon" href="images/logo32x32.jpeg" type="image/png" sizes="32x32">
+  <link rel="icon" href="images/logo96x96.jpeg" type="image/png" sizes="96x96">
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+
+<body>
+ <div class="header">
+    <div class="back-button-container">
+        <button class="back-button" onclick="history.back()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Back
+        </button>
+    </div>
+    <h1 class="header-title">Create new event</h1>
+    <div class="header-right-placeholder"></div>
+</div>
+
+<div class="container">
+    <form id="eventForm">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" placeholder="Enter event title" required />
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" placeholder="Provide a detailed description of your event" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="prompt">Need Help with Your Event Description:</label>
+            <textarea id="prompt" name="prompt" placeholder="Provide a prompt of your event"></textarea>
+        </div>
+
+        <button class="btn" id="btn">
+            <svg height="24" width="24" fill="#FFFFFF" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1" class="sparkle">
+                <path d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z"></path>
+            </svg>
+            <span class="text">Generate</span>
+        </button>
+        <div class="form-group">
+            <label for="type">Type:</label>
+            <input type="text" id="type" name="type" placeholder="e.g. Workshop, Conference, Social" />
+        </div>
+
+        <div class="form-group">
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" placeholder="Event venue or online link" />
+        </div>
+
+        <div class="form-group">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" />
+        </div>
+
+        <div class="form-group">
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time" />
+        </div>
+
+        <div class="form-group">
+            <label for="price">Entrence Fee:</label>
+            <input type="text" id="price" name="price" placeholder="Entrence Fee for event or additonal fees" />
+        </div>
+
+        <div class="form-group">
+            <label for="capacity">Capacity:</label>
+            <input type="text" id="capacity" name="capacity" placeholder="Number of participants possible" />
+        </div>
+
+        <div class="form-group">
+            <label for="upload_widget">Event Image:</label>
+            <button type="button" id="upload_widget">Upload Event Image</button>
+            <p id="imageStatus"></p>
+            <input type="hidden" name="imageUrl" id="imageUrl" required />
+        </div>
+
+        <div class="form-group">
+            <button type="submit" id="submit"></button>
+        </div>
+    </form>
+</div>
+  <script>
+
+    const token = localStorage.getItem('token');
+    const eventAction = localStorage.getItem('eventAction');
+    const eventId = localStorage.getItem('eventId');
+
+    if (eventAction === 'update') {
+      document.getElementById('submit').textContent = 'Update Event';
+      (async () => {
+        try {
+          const response = await fetch(`/api/events/event/${eventId}`, {
+            method: 'GET',
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+
+          const data = await response.json();
+          if (response.ok) {
+            document.getElementById('title').value = data.title;
+            document.getElementById('description').value = data.description;
+            document.getElementById('type').value = data.type;
+            document.getElementById('location').value = data.location;
+            document.getElementById('date').value = data.date.split("T")[0]; // format date
+            document.getElementById('time').value = data.time;
+            document.getElementById('price').value = data.price;
+            document.getElementById('capacity').value = data.capacity;
+            document.getElementById('imageUrl').value = data.image;
+            document.getElementById("imageStatus").textContent = "Image already uploaded.";
+          } else {
+            alert(data.message || 'Failed to retrieve event');
+          }
+        } catch (err) {
+          console.error('Failed to retrieve event:', err);
+        }
+      })();
+    }
+    else {
+      document.getElementById('submit').textContent = 'Create Event';
+    }
+
+    // Cloudinary Upload Widget
+    const widget = cloudinary.createUploadWidget({
+      cloudName: 'duxdyvz5r',
+      uploadPreset: 'Unihub_preset',
+      sources: ['local', 'url', 'camera'],
+      multiple: false,
+      folder: 'events',
+      cropping: false,
+      maxFileSize: 2000000, // 2MB
+    }, (error, result) => {
+      if (!error && result && result.event === "success") {
+        const imageUrl = result.info.secure_url;
+        console.log('Uploaded image:', imageUrl);
+        document.getElementById("imageUrl").value = imageUrl;
+        document.getElementById("imageStatus").textContent = "Image uploaded successfully!";
+      }
+    });
+    document.getElementById("upload_widget").addEventListener("click", () => widget.open(), false);
+
+
+    //----------------------------------------------------------------------------------
+    //Handle prompting event description
+    document.getElementById("btn").addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      console.log("Prompting");
+      const form = document.getElementById("eventForm");
+      const formData = {
+        title: form.title.value,
+        prompt: form.prompt.value,
+        type: form.type.value,
+        location: form.location.value,
+        date: form.date.value,
+        time: form.time.value,
+        price: form.price.value,
+      };
+
+      console.log("Prompt request data:", formData);
+
+      try {
+        const res = await fetch('/api/events/prompt', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await res.json();
+        console.log("Generated text:", data.generatedText);
+
+        document.getElementById('description').value = data.generatedText;
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+    //----------------------------------------------------------------------------------
+
+    // Handle form submit
+    document.getElementById("eventForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = {
+        title: form.title.value,
+        description: form.description.value,
+        type: form.type.value,
+        location: form.location.value,
+        date: form.date.value,
+        time: form.time.value,
+        price: form.price.value,
+        capacity: form.capacity.value,
+        image: form.imageUrl.value,
+
+      };
+
+      if (eventAction === 'create') {
+
+        console.log(formData)
+
+        console.log("eventAction :", eventAction);
+        try {
+
+          const res = await fetch('/api/events/event', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            }, //
+            body: JSON.stringify(formData)
+          });
+          const data = await res.json();
+          if (!res.ok) {
+            console.error("Error creating event.", data);
+            Swal.fire("Failed to create event: " + (data.errors?.[0]?.msg || data.message));
+            return
+          }
+          console.log('Event created:', data);
+          Swal.fire({
+            title: 'Event Created',
+            text: 'Event Creation Successful',
+            icon: 'success',
+            showConfirmButton: true,
+            allowOutsideClick: false,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              form.reset(); // reset form after successful creating of event
+              document.getElementById("imageStatus").textContent = "";
+              window.location.href = 'event.html';
+            }
+          });
+
+
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+
+      else if (eventAction === 'update') {
+
+        console.log(formData)
+
+        try {
+
+          const res = await fetch(`/api/events/event/${eventId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(formData)
+          });
+          const data = await res.json();
+          if (!res.ok) {
+            console.error("Error editing event.", data);
+
+            Swal.fire({
+              title: 'Update Faliure ',
+              text: "Failed to edit event: " + (data.errors?.[0]?.msg || data.message),
+              showConfirmButton: true,
+              allowOutsideClick: false,
+              allowEscapeKey: false,
+              confirmButtonText: 'OK'
+            });
+            return;
+
+          }
+          console.log('Event edited:', data);
+          Swal.fire({
+            title: 'Event Updated',
+            text: 'Event successfully edited!',
+            icon: 'success',
+            showConfirmButton: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            confirmButtonText: 'OK'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              form.reset();
+              document.getElementById("imageStatus").textContent = "";
+              window.location.href = 'event.html'; // Redirect AFTER user confirms
+            }
+          });
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+    });
+  </script>
+</body>
+
+</html>

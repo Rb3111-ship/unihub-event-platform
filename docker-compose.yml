@@ -1,0 +1,86 @@
+version: "3.8"
+
+services:
+  event-service:
+    build: ./event-service
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./event-service/.env
+    depends_on:
+      - mongo
+      - redis
+    networks:
+      - app-network
+
+  auth-service:
+    build: ./auth-service/api
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./auth-service/api/.env
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+
+  feedback-service:
+    build: ./feedback-service
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+
+  notification-service:
+    build: ./notification-service
+    ports:
+      - "5000:80"
+    networks:
+      - app-network
+
+  frontend:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: feedback
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
+
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
+volumes:
+  mongo-data:
+  mysql-data:
+
+networks:
+  app-network:

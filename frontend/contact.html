@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="icon" href="images/logo16x16.jpeg" type="image/png" sizes="16x16">
+    <link rel="icon" href="images/logo32x32.jpeg" type="image/png" sizes="32x32">
+    <link rel="icon" href="images/logo96x96.jpeg" type="image/png" sizes="96x96">
+    <style>
+        :root {
+            --primary-color: #2a52be;
+            --secondary-color: #f0f4f9;
+            --accent-color: #ff6b6b;
+            --success-color: #4CAF50;
+            --text-color: #333;
+            --light-text: #fff;
+            --transition-time: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #1e3a8a);
+            color: var(--light-text);
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(30deg);
+            animation: shimmer 8s infinite linear;
+        }
+
+        @keyframes shimmer {
+            from {
+                transform: translateX(-30%) rotate(30deg);
+            }
+
+            to {
+                transform: translateX(30%) rotate(30deg);
+            }
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .contact-section {
+            margin: 4rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-form-container {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .section-title {
+            position: relative;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+            transition: width var(--transition-time);
+        }
+
+        .section-title:hover::after {
+            width: 120px;
+        }
+
+        .contact-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            transform: translateY(0);
+            transition: transform var(--transition-time);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-method:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            transition: all var(--transition-time);
+        }
+
+        .contact-method:hover .contact-icon {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            transform: rotateY(180deg);
+        }
+
+        .contact-info-text {
+            flex: 1;
+        }
+
+        .contact-label {
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            color: var(--text-color);
+        }
+
+        .contact-value {
+            color: #666;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all var(--transition-time);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        .contact-form {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: all var(--transition-time);
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(42, 82, 190, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-time);
+            outline: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: var(--transition-time);
+        }
+
+        .btn:hover {
+            background-color: #1e3a8a;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .map-container {
+            margin-top: 3rem;
+            height: 400px;
+            border-radius: 8px;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transform: translateY(50px);
+            animation: fadeUp 0.6s forwards;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .map-placeholder {
+            width: 110%;
+            height: 100%;
+            background-color: #eee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #999;
+            font-size: 1.2rem;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .main-footer {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 80px 0 30px;
+            margin-top: 50px;
+            width: 110%;
+        }
+
+        .footer-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            padding: 0 20px;
+        }
+
+        .footer-section h3 {
+            color: #4CAF50;
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4CAF50;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #4CAF50;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+
+        @media (max-width: 992px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .alert-success {
+            background-color: rgba(76, 175, 80, 0.1);
+            border: 1px solid var(--success-color);
+            color: var(--success-color);
+        }
+
+        .alert-error {
+            background-color: rgba(255, 107, 107, 0.1);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity var(--transition-time), transform var(--transition-time);
+            z-index: 1000;
+            transform: translateY(20px);
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+        }
+
+        .input-animation {
+            position: relative;
+        }
+
+        .input-animation .form-control {
+            padding: 1rem;
+            transition: all 0.3s;
+        }
+
+        .input-animation .form-label {
+            position: absolute;
+            top: 0.8rem;
+            left: 1rem;
+            transition: all 0.3s;
+            pointer-events: none;
+            margin: 0;
+            opacity: 0.7;
+        }
+
+        .input-animation .form-control:focus,
+        .input-animation .form-control:not(:placeholder-shown) {
+            padding-top: 1.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .input-animation .form-control:focus+.form-label,
+        .input-animation .form-control:not(:placeholder-shown)+.form-label {
+            top: 0.4rem;
+            left: 1rem;
+            font-size: 0.7rem;
+            opacity: 1;
+            color: var(--primary-color);
+        }
+    </style>
+
+</head>
+
+<body>
+    <header data-aos="fade-down" data-aos-duration="1000">
+        <div class="header-content container" data-aos="zoom-in" data-aos-delay="300">
+            <h1>Get In Touch</h1>
+            <p class="subtitle">We'd love to hear from you. Send us a message!</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="contact-section">
+            <div class="contact-info">
+                <h2 class="section-title" data-aos="fade-right" data-aos-delay="200">Contact Information</h2>
+
+                <div class="contact-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-info-text">
+                            <div class="contact-label">Email</div>
+                            <div class="contact-value">kiranthapa.me@gmail.com</div>
+                        </div>
+                    </div>
+
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-info-text">
+                            <div class="contact-label">Phone</div>
+                            <div class="contact-value">+97714251236134</div>
+                        </div>
+                    </div>
+
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-info-text">
+                            <div class="contact-label">Location</div>
+                            <div class="contact-value">Hamburg<br>Herstetieg 4, 22547</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-aos="fade-up" data-aos-delay="400">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/kiran.thapa.77377692/" target="_blank"
+                            rel="noopener noreferrer" data-aos="zoom-in" data-aos-delay="100"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/kiran_thapa.me/" target="_blank" rel="noopener noreferrer"><i
+                                class="fab fa-instagram" data-aos="zoom-in" data-aos-delay="200"></i></a>
+                        <a href="https://www.linkedin.com/in/kiran-thapa-342a60265/" target="_blank"
+                            rel="noopener noreferrer" data-aos="zoom-in" data-aos-delay="300"><i
+                                class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/" target="_blank" rel="noopener noreferrer" data-aos="zoom-in"
+                            data-aos-delay="400"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-container" data-aos="fade-left" data-aos-delay="500">
+                <h2 class="section-title">Send A Message</h2>
+
+                <div class="contact-form" data-aos="zoom-in-up" data-aos-delay="600">
+                    <div class="alert alert-success" id="form-success" style="display: none;">
+                        Message sent successfully! We'll get back to you soon.
+                    </div>
+                    <div class="alert alert-error" id="form-error" style="display: none;">
+                        There was an error sending your message. Please try again.
+                    </div>
+
+                    <form id="contactForm" method="POST">
+                        <input type="hidden" name="access_key" value="2c0131cc-3e35-45ca-841e-4f9c8256cff1">
+                        <input type="hidden" name="subject" value="New Contact Form Submission">
+                        <input type="checkbox" name="botcheck" style="display: none;">
+
+                        <div class="form-grid">
+                            <div class="form-group input-animation">
+                                <input type="text" class="form-control" id="name" name="name" placeholder=" " required>
+                                <label for="name" class="form-label">Your Name</label>
+                            </div>
+
+                            <div class="form-group input-animation">
+                                <input type="email" class="form-control" id="email" name="email" placeholder=" "
+                                    required>
+                                <label for="email" class="form-label">Your Email</label>
+                            </div>
+
+                            <div class="form-group input-animation">
+                                <input type="tel" class="form-control" id="phone" name="phone" placeholder=" ">
+                                <label for="phone" class="form-label">Phone Number (Optional)</label>
+                            </div>
+
+                            <div class="form-group input-animation">
+                                <input type="text" class="form-control" id="subject" name="subject" placeholder=" "
+                                    required>
+                                <label for="subject" class="form-label">Subject</label>
+                            </div>
+
+                            <div class="form-group full-width input-animation">
+                                <textarea class="form-control" id="message" name="message" placeholder=" "
+                                    required></textarea>
+                                <label for="message" class="form-label">Your Message</label>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <button type="submit" class="btn">
+                                    <span class="btn-text">Send Message</span>
+                                    <i class="fas fa-paper-plane ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="map-container" data-aos="zoom-in" data-aos-delay="700">
+            <div class="map-placeholder">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2367.9069862988226!2d9.88060807567992!3d53.595121256081654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b186849cb61d17%3A0xa34ddc24e1fbeb59!2sHerbststieg%204%2C%2022547%20Hamburg!5e0!3m2!1sde!2sde!4v1743320642102!5m2!1sde!2sde"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer" data-aos="fade-up" data-aos-duration="1000">
+        <div class="footer-wave"></div>
+        <div class="footer-content">
+            <div class="footer-section" data-aos="fade-right" data-aos-delay="200">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="team.html">Our Team</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section" data-aos="fade-right" data-aos-delay="300">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Web Design</a></li>
+                    <li><a href="#">Marketing</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section" data-aos="fade-right" data-aos-delay="400">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section" data-aos="fade-right" data-aos-delay="500">
+                <h3>Newsletter</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/kiran.thapa.77377692/" data-aos="fade-up" data-aos-delay="100"
+                        target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/kiran_thapa.me/" data-aos="fade-up" data-aos-delay="200"
+                        target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/kiran-thapa-342a60265/" data-aos="fade-up" data-aos-delay="300"
+                        target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom" data-aos="fade-up" data-aos-delay="600">
+            <p>&copy; 2025 Old Exam Web. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <div class="scroll-to-top" data-aos="fade-left" data-aos-anchor="#scroll-to-top" data-aos-delay="1000">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+
+        AOS.init({
+            once: true,
+            mirror: false
+        });
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const contactForm = document.getElementById('contactForm');
+            const successAlert = document.getElementById('form-success');
+            const errorAlert = document.getElementById('form-error');
+            const submitBtn = contactForm.querySelector('button');
+            const btnText = submitBtn.querySelector('.btn-text');
+
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                submitBtn.disabled = true;
+                btnText.textContent = 'Sending...';
+                successAlert.style.display = 'none';
+                errorAlert.style.display = 'none';
+
+                try {
+                    const formData = new FormData(contactForm);
+                    const response = await fetch('https://api.web3forms.com/submit', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        successAlert.style.display = 'block';
+                        contactForm.reset();
+                    } else {
+                        errorAlert.textContent = data.message || 'Submission failed. Please try again.';
+                        errorAlert.style.display = 'block';
+                    }
+                } catch (error) {
+                    errorAlert.textContent = 'Network error. Please check your connection.';
+                    errorAlert.style.display = 'block';
+                } finally {
+                    submitBtn.disabled = false;
+                    btnText.textContent = 'Send Message';
+                    setTimeout(() => {
+                        successAlert.style.display = 'none';
+                        errorAlert.style.display = 'none';
+                    }, 5000);
+                }
+            });
+
+
+            const scrollToTopBtn = document.querySelector('.scroll-to-top');
+            window.addEventListener('scroll', () => {
+                scrollToTopBtn.classList.toggle('visible', window.scrollY > 300);
+            });
+
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Animation on scroll
+            const elementsToAnimate = document.querySelectorAll('.contact-card, .contact-form');
+            elementsToAnimate.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+            });
+
+            function checkVisibility() {
+                elementsToAnimate.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.8 && rect.bottom >= 0) {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', checkVisibility);
+            checkVisibility();
+        });
+    </script>
+</body>
+
+</html>

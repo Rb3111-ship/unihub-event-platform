@@ -1,0 +1,280 @@
+/* Global Body Styles */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #0a192f;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    /* Changed to grid for precise control of three columns */
+    display: grid;
+    grid-template-columns: 1fr auto 1fr; /* Left (back button), Center (title), Right (empty for balance) */
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: #003366;
+    /* Centered using grid */
+    text-align: center;
+    grid-column: 2; /* Place in the middle column */
+}
+
+/* Specific style for the header title to ensure it's centered */
+.header-title {
+    text-align: center;
+    justify-self: center; /* Centers horizontally within its grid cell */
+}
+
+
+.site-logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #003366;
+    /* Kept for potential future use if a logo is added on the left/right */
+    text-align: left;
+}
+
+/* Back Button Styles */
+.back-button-container {
+    grid-column: 1; /* Places in the first column */
+    justify-self: start; /* Aligns to the start of the column */
+}
+
+.back-button {
+    background-color: transparent;
+    border: 1px solid #003366;
+    color: #003366;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #003366;
+    color: #ffffff;
+}
+
+.back-button svg {
+    stroke: #003366; /* Default color for the SVG icon */
+    transition: stroke 0.3s ease;
+}
+
+.back-button:hover svg {
+    stroke: #ffffff; /* Change SVG color on hover */
+}
+
+/* Placeholder for the right side of the header */
+.header-right-placeholder {
+    grid-column: 3; /* Places in the third column */
+    justify-self: end; /* Aligns to the end of the column */
+}
+
+/* Main Content Container */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+/* Form Container */
+#eventForm {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 40px;
+    width: 100%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+/* Form Fields Container */
+.form-group {
+    margin-bottom: 24px;
+}
+
+/* Label Styles */
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #4a5568;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Input Styles */
+input,
+textarea {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    color: #000000;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: #003366;
+    box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.2);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Button Styles */
+#upload_widget,
+button[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background-color: #003366;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+#upload_widget:hover,
+button[type="submit"]:hover {
+    background-color: #004080;
+}
+
+/* Image Upload Status */
+#imageStatus {
+    color: #48bb78;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+/* Placeholder Styles */
+::placeholder {
+    color: #a0aec0;
+}
+
+/* Date Input Custom Styling */
+input[type="date"] {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+/* Focus and Active States */
+input:focus,
+textarea:focus,
+#upload_widget:focus,
+button[type="submit"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.2);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column; /* Still relevant for full collapse */
+        text-align: center;
+        padding: 15px;
+        grid-template-columns: 1fr; /* Stacks items on small screens */
+    }
+
+    .header .back-button-container,
+    .header .header-right-placeholder {
+        justify-self: center; /* Center these items on small screens */
+        grid-column: 1; /* Ensure they stay in the single column */
+    }
+
+    .header-title {
+        margin-bottom: 10px;
+        grid-column: 1; /* Ensure it stays in the single column */
+    }
+
+    #eventForm {
+        padding: 20px;
+        margin: 10px;
+        width: calc(100% - 20px);
+        box-sizing: border-box;
+    }
+
+    .container {
+        padding: 0;
+        width: 100%;
+    }
+}
+
+/* From Uiverse.io by AlimurtuzaCodes */
+.btn {
+    border: none;
+    width: 10em;
+    height: 3em;
+    border-radius: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background: #1C1A1C;
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+    /* New: Added margin-top to move it up */
+    margin-top: -15px; /* Adjust this value as needed to fine-tune placement */
+    margin-bottom: 24px; /* Ensure it still has proper spacing below */
+}
+
+.sparkle {
+    fill: #AAAAAA;
+    transition: all 400ms ease;
+}
+
+.text {
+    font-weight: 600;
+    color: #AAAAAA;
+    font-size: small;
+}
+
+.btn:hover {
+    background: linear-gradient(0deg, #6a5acd, #483D8B);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.2),
+        inset 0px -2px 0px 0px rgba(0, 0, 0, 0.1),
+        0px 0px 0px 2px rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+.btn:hover .text {
+    color: white;
+}
+
+.btn:hover .sparkle {
+    fill: white;
+    transform: scale(1.1);
+}

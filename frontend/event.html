@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Meta tags for character set and viewport settings -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT Faculty - Events</title>
+
+  <!-- External CSS links for Font Awesome and custom styles -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="eventStyle.css">
+
+  <link rel="icon" href="images/logo16x16.jpeg" type="image/png" sizes="16x16">
+  <link rel="icon" href="images/logo32x32.jpeg" type="image/png" sizes="32x32">
+  <link rel="icon" href="images/logo96x96.jpeg" type="image/png" sizes="96x96">
+
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+</head>
+
+<body>
+  <!-- Header section with title and description -->
+  <header>
+    <h1>Events</h1>
+    <p>Discover upcoming workshops, seminars, and tech events</p>
+
+
+
+    <button class="Btn">
+
+      <div class="sign"><svg viewBox="0 0 512 512">
+          <path
+            d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
+          </path>
+        </svg></div>
+
+      <div class="text">Logout</div>
+
+
+
+    </button>
+
+
+  </header>
+
+  <!-- Search Bar Section -->
+  <div class="search-container user">
+    <input type="text" id="searchInput" placeholder="Search events by title, location, or description...">
+    <button id="searchButton">Search</button>
+  </div>
+  <div id="newEvent">
+    <div class="createEvent btn-2 organizer">New Event</div>
+  </div>
+
+  <!-- Browse by Category Section -->
+  <div class="categories-section user">
+    <div class="section-header">
+      <h2>Browse by Category</h2>
+      <a href="#" class="see-all" id="seeAll">See All</a>
+    </div>
+
+
+
+    <!-- Category Grid -->
+    <div class="categories-grid">
+      <!-- Academic Category -->
+      <div class="category-item" data-category="academic">
+        <div class="category-icon">
+          <i class="fas fa-graduation-cap" id="academic"></i>
+        </div>
+        <div class="category-name">Academic</div>
+      </div>
+
+      <!-- Social Category -->
+      <div class="category-item" data-category="social">
+        <div class="category-icon">
+          <i class="fas fa-users" id="social"></i>
+        </div>
+        <div class="category-name">Social</div>
+      </div>
+
+      <!-- Career Category -->
+      <div class="category-item" data-category="career">
+        <div class="category-icon">
+          <i class="fas fa-briefcase" id="career"></i>
+        </div>
+        <div class="category-name">Career</div>
+      </div>
+
+      <!-- Arts & Culture Category -->
+      <div class="category-item" data-category="arts">
+        <div class="category-icon">
+          <i class="fas fa-palette" id="arts"></i>
+        </div>
+        <div class="category-name">Arts & Culture</div>
+      </div>
+
+      <!-- Sports Category -->
+      <div class="category-item" data-category="sports">
+        <div class="category-icon">
+          <i class="fas fa-futbol" id="sports"></i>
+        </div>
+        <div class="category-name">Sports</div>
+      </div>
+
+      <!-- Research Category -->
+      <div class="category-item" data-category="research">
+        <div class="category-icon">
+          <i class="fas fa-flask" id="research"></i>
+        </div>
+        <div class="category-name">Research</div>
+      </div>
+
+      <!-- Volunteer Category -->
+      <div class="category-item" data-category="volunteer">
+        <div class="category-icon">
+          <i class="fas fa-hands-helping" id="volunteer"></i>
+        </div>
+        <div class="category-name">Volunteer</div>
+      </div>
+
+      <!-- Upcoming Category -->
+      <div class="category-item" data-category="upcoming">
+        <div class="category-icon">
+          <i class="fas fa-video" id="virtual"></i>
+        </div>
+        <div class="category-name">Upcoming</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Events Container -->
+  <div class="events-container" id="eventsContainer"></div>
+
+  <!-- Event Details Overlay Modal Begins here -->
+  <div id="eventDetailsModal" class="event-details-modal">
+    <div class="event-details-modal-content">
+      <span class="close-modal">×</span>
+
+      <!-- Main Content -->
+      <div class="event-details-container">
+        <!-- Left Column: Event Poster -->
+        <div class="event-details-left">
+          <div class="event-poster">
+            <img src="" alt="Event Poster">
+          </div>
+        </div>
+
+        <!-- Right Column: Event Details -->
+        <div class="event-details-right">
+          <h2 class="event-title"></h2>
+          <p class="organizer-name"></p>
+
+          <div class="event-details-section">
+            <!-- Content populated dynamically -->
+          </div>
+
+          <div class="about-event">
+            <h3>About This Event</h3>
+            <p></p>
+          </div>
+
+          <!-- <button class="interested-btn">SHOW INTEREST</button> -->
+          <p class="interest-count user"></p>
+        </div>
+      </div>
+
+      <!-- Tags -->
+      <div class="event-tags">
+        <!-- Tags populated dynamically -->
+      </div>
+
+      <!-- Reviews Section -->
+      <div class="reviews-section">
+        <h3>Reviews</h3>
+        <div class="reviews">
+
+        </div>
+        <!-- Example reviews can stay if hardcoded for demo/testing,
+             but can also be removed if you plan to load reviews dynamically -->
+        <button class="see-more-reviews">SEE REVIEWS</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- External JavaScript file -->
+  <script type="module" src="eventScript.js"></script>
+
+</body>
+
+</html>
